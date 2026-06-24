@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sayanggg! 💛 </title>
+    <style>
+        /* Latar Belakang & Efek Lembut */
+        body {
+            font-family: 'Arial Rounded MT Bold', 'Segoe UI', sans-serif;
+            background-color: #FFFCE8;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* --- SISTEM NAILONG BANYAK (BACKGROUND LALU LALANG) --- */
+        .nailong-bg {
+            position: absolute;
+            width: 45px;
+            height: 45px;
+            background: #FFDE4D;
+            border-radius: 50% 50% 45% 45%;
+            box-shadow: inset -3px -3px 0px #E5C122;
+            opacity: 0.6;
+            z-index: 1;
+            animation: floatUp 6s infinite ease-in-out;
+        }
+        .nailong-bg::before, .nailong-bg::after {
+            content: ''; position: absolute; background: #333; border-radius: 50%; width: 5px; height: 7px; top: 18px;
+        }
+        .nailong-bg::before { left: 12px; } .nailong-bg::after { right: 12px; }
+        .nailong-bg .horn-bg {
+            position: absolute; width: 8px; height: 8px; background: #FFAD84; top: -4px; left: 18px; transform: rotate(45deg);
+        }
+
+        /* Posisi & Variasi Waktu Animasi Dino Latar Belakang */
+        .dino1 { left: 10%; bottom: -50px; animation-duration: 7s; }
+        .dino2 { left: 25%; bottom: -50px; animation-duration: 9s; animation-delay: 2s; }
+        .dino3 { left: 75%; bottom: -50px; animation-duration: 8s; animation-delay: 1s; }
+        .dino4 { left: 88%; bottom: -50px; animation-duration: 10s; animation-delay: 3s; }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+        }
+
+        /* --- KONTANIER UTAMA BUKU --- */
+        .book-container {
+            width: 90%;
+            max-width: 400px;
+            height: 570px;
+            position: relative;
+            perspective: 1500px;
+            z-index: 10;
+        }
+
+        /* Halaman */
+        .page {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background: #FFFFFF;
+            border-radius: 24px;
+            box-shadow: 0 12px 30px rgba(255, 173, 132, 0.25);
+            padding: 35px 25px 80px 25px; 
+            box-sizing: border-box;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            transition: transform 0.6s ease-in-out, opacity 0.4s;
+            border: 6px solid #FFDE4D;
+            opacity: 0;
+            pointer-events: none;
+            overflow: hidden; /* Agar dekorasi pinggir tidak keluar halaman */
+        }
+
+        /* Hanya halaman aktif yang terlihat */
+        .page.active {
+            opacity: 1;
+            pointer-events: auto;
+            transform: rotateY(0deg);
+        }
+
+        /* Efek halaman yang terlewat */
+        .page.passed {
+            transform: rotateY(-160deg) scale(0.85) translateX(-60px);
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* --- STYLING BERKAITAN KEPALA NAILONG --- */
+        .nailong-avatar {
+            width: 90px;
+            height: 90px;
+            background: #FFDE4D;
+            border-radius: 50% 50% 45% 45%;
+            position: relative;
+            box-shadow: inset -6px -6px 0px #E5C122;
+        }
+        .nailong-avatar::before, .nailong-avatar::after {
+            content: ''; position: absolute; width: 14px; height: 8px; background: #FF8E8F; border-radius: 50%; top: 55px;
+        }
+        .nailong-avatar::before { left: 12px; }
+        .nailong-avatar::after { right: 12px; }
+        .nailong-eyes { position: absolute; width: 10px; height: 14px; background: #333; border-radius: 50%; top: 38px; }
+        .nailong-eyes.left { left: 24px; }
+        .nailong-eyes.right { right: 24px; }
+        .nailong-eyes::after { content: ''; position: absolute; width: 4px; height: 4px; background: #FFF; border-radius: 50%; top: 2px; left: 2px; }
+        .nailong-mouth { position: absolute; width: 20px; height: 10px; border-bottom: 4px solid #333; border-radius: 0 0 15px 15px; top: 50px; left: 35px; }
+        .nailong-horn { position: absolute; width: 16px; height: 16px; background: #FFAD84; border-radius: 4px; top: -8px; left: 37px; transform: rotate(45deg); box-shadow: -2px 2px 0px #E5C122; }
+
+        /* --- STRUKTUR DEKORASI NAILONG FULL BADAN --- */
+        .nailong-fullbody {
+            width: 100px;
+            height: 130px;
+            position: relative;
+            margin-bottom: 15px;
+            animation: bobbing 2s infinite ease-in-out;
+            z-index: 5;
+        }
+        .nailong-body {
+            position: absolute;
+            width: 85px;
+            height: 80px;
+            background: #FFDE4D;
+            border-radius: 40% 40% 50% 50%;
+            bottom: 10px;
+            left: 7px;
+            box-shadow: inset -6px -6px 0px #E5C122;
+            z-index: 2;
+        }
+        .nailong-belly {
+            position: absolute;
+            width: 50px;
+            height: 45px;
+            background: #FFF7A1;
+            border-radius: 50%;
+            bottom: 5px;
+            left: 17px;
+        }
+        .nailong-foot {
+            position: absolute;
+            width: 26px;
+            height: 18px;
+            background: #E5C122;
+            border-radius: 50% 50% 30% 30%;
+            bottom: 2px;
+            z-index: 1;
+        }
+        .nailong-foot.left { left: 10px; }
+        .nailong-foot.right { right: 10px; }
+        
+        .nailong-hand {
+            position: absolute;
+            width: 22px;
+            height: 22px;
+            background: #FFDE4D;
+            border-radius: 50%;
+            top: 65px;
+            z-index: 3;
+            box-shadow: -1px 2px 0px #E5C122;
+        }
+        .nailong-hand.left { left: -5px; transform: rotate(-30deg); }
+        .nailong-hand.right { right: -5px; transform: rotate(30deg); animation: wave 1s infinite alternate ease-in-out; }
+        
+        .nailong-tail {
+            position: absolute;
+            width: 30px;
+            height: 25px;
+            background: #E5C122;
+            border-radius: 50% 20% 40% 50%;
+            bottom: 15px;
+            left: -15px;
+            transform: rotate(-15deg);
+            z-index: 1;
+        }
+
+        /* --- DEKORASI PINGGIRAN HALAMAN (BUNGA & BINTANG) --- */
+        .deco-flower {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #FFAD84;
+            border-radius: 50%;
+            filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.1));
+        }
+        .deco-flower::before {
+            content: ''; position: absolute; width: 20px; height: 20px; background: #FFAD84; border-radius: 50%; transform: rotate(30deg);
+        }
+        .deco-flower::after {
+            content: ''; position: absolute; width: 20px; height: 20px; background: #FFAD84; border-radius: 50%; transform: rotate(60deg);
+        }
+        /* Inti Tengah Bunga Kuning */
+        .flower-core {
+            position: absolute; width: 8px; height: 8px; background: #FFDE4D; border-radius: 50%; top: 6px; left: 6px; z-index: 3;
+        }
+
+        /* Posisi Spesifik Bunga */
+        .fl-top-left { top: 20px; left: 20px; transform: scale(1.1); }
+        .fl-top-right { top: 25px; right: 20px; transform: scale(0.9) rotate(15deg); }
+        .fl-mid-left { top: 50%; left: 15px; transform: translateY(-50%) scale(0.8); }
+        .fl-mid-right { top: 45%; right: 15px; transform: scale(1); }
+        .fl-bot-left { bottom: 90px; left: 25px; transform: scale(0.9); }
+        .fl-bot-right { bottom: 95px; right: 20px; transform: scale(1.2) rotate(45deg); }
+
+        /* Bintang-Bintang Kecil Sparkle */
+        .deco-star {
+            position: absolute;
+            font-size: 14px;
+            color: #FFDE4D;
+            opacity: 0.8;
+            animation: pulse 1.5s infinite ease-in-out alternate;
+        }
+        .st1 { top: 60px; left: 55px; animation-delay: 0.2s; }
+        .st2 { top: 45px; right: 65px; animation-delay: 0.5s; }
+        .st3 { bottom: 140px; left: 50px; animation-delay: 0.8s; }
+        .st4 { bottom: 150px; right: 55px; animation-delay: 0s; }
+
+        /* Elemen Teks */
+        h1 { color: #FF9130; font-size: 24px; margin: 10px 0; font-weight: 900; position: relative; z-index: 5; }
+        h1 span { color: #FFDE4D; background: #333; padding: 2px 8px; border-radius: 8px; font-size: 20px; }
+        p { color: #55423d; font-size: 14px; line-height: 1.6; margin: 10px 0; position: relative; z-index: 5; }
+        .deco-dots { color: #FFAD84; font-size: 20px; letter-spacing: 5px; margin: 5px 0; }
+
+        /* --- TOMBOL NAVIGASI MAJU MUNDUR --- */
+        .nav-container {
+            position: absolute;
+            bottom: 25px;
+            display: flex;
+            gap: 20px;
+            width: calc(100% - 50px);
+            justify-content: space-between;
+            z-index: 10;
+        }
+
+        .btn {
+            background: #FFDE4D;
+            border: 3px solid #333;
+            padding: 8px 18px;
+            border-radius: 14px;
+            cursor: pointer;
+            font-family: inherit;
+            font-weight: bold;
+            font-size: 13px;
+            color: #333;
+            box-shadow: 0 4px 0px #333;
+            transition: all 0.1s ease;
+        }
+
+        .btn:active {
+            transform: translateY(4px);
+            box-shadow: 0 0px 0px #333;
+        }
+
+        .btn-prev {
+            background: #FFF;
+            border-color: #aaa;
+            color: #aaa;
+            box-shadow: 0 4px 0px #aaa;
+        }
+        .btn-prev:active {
+            box-shadow: 0 0px 0px #aaa;
+        }
+
+        /* --- STYLING UNTUK COPYRIGHT --- */
+        .copyright {
+            position: fixed;
+            bottom: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Segoe UI', sans-serif;
+            font-size: 11px;
+            color: #bfaaa3;
+            font-weight: bold;
+            letter-spacing: 0.5px;
+            z-index: 20;
+            text-align: center;
+            width: 100%;
+            pointer-events: none;
+        }
+
+        /* --- ANIMASI AMAN --- */
+        @keyframes bobbing {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+        @keyframes wave {
+            0% { transform: rotate(30deg) translateY(0); }
+            100% { transform: rotate(65deg) translateY(-3px); }
+        }
+        @keyframes pulse {
+            0% { transform: scale(0.8); opacity: 0.5; }
+            100% { transform: scale(1.2); opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- PASUKAN NAILONG ARMY DI BACKGROUND -->
+    <div class="nailong-bg dino1"><div class="horn-bg"></div></div>
+    <div class="nailong-bg dino2"><div class="horn-bg"></div></div>
+    <div class="nailong-bg dino3"><div class="horn-bg"></div></div>
+    <div class="nailong-bg dino4"><div class="horn-bg"></div></div>
+
+    <!-- KONTEN BUKU -->
+    <div class="book-container">
+
+        <!-- HALAMAN 1 -->
+        <div class="page active" id="p1">
+            <!-- Dekor Pinggir Halaman 1 -->
+            <div class="deco-flower fl-top-left"><div class="flower-core"></div></div>
+            <div class="deco-flower fl-mid-right"><div class="flower-core"></div></div>
+            <div class="deco-flower fl-bot-left"><div class="flower-core"></div></div>
+            <div class="deco-star st2">✨</div>
+            <div class="deco-star st3">⭐</div>
+
+            <!-- Nailong Full Body -->
+            <div class="nailong-fullbody">
+                <div class="nailong-avatar" style="margin-bottom:0; z-index:4;">
+                    <div class="nailong-horn"></div>
+                    <div class="nailong-eyes left"></div>
+                    <div class="nailong-eyes right"></div>
+                    <div class="nailong-mouth"></div>
+                </div>
+                <div class="nailong-body"><div class="nailong-belly"></div></div>
+                <div class="nailong-hand left"></div>
+                <div class="nailong-hand right"></div>
+                <div class="nailong-foot left"></div>
+                <div class="nailong-foot right"></div>
+                <div class="nailong-tail"></div>
+            </div>
+            
+            <h1>Halo Dito! <span>Nailong Disini</span></h1>
+            <div class="deco-dots"></div>
+            <p>"Nailong membawakan beberapa pesan penting dari manda untuk manusia favoritnya yang sedang bertambah usia hari ini.</p>
+            <p><b>Yuk Dibaca, Klik Lanjut Yaa"</b></p>
+            
+            <div class="nav-container">
+                <div></div>
+                <button class="btn" onclick="changePage(1)">Lanjut ❯</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 2 -->
+        <div class="page" id="p2">
+            <!-- Dekor Pinggir Halaman 2 -->
+            <div class="deco-flower fl-top-right"><div class="flower-core"></div></div>
+            <div class="deco-flower fl-mid-left"><div class="flower-core"></div></div>
+            <div class="deco-flower fl-bot-right"><div class="flower-core"></div></div>
+            <div class="deco-star st1">⭐</div>
+            <div class="deco-star st4">✨</div>
+
+            <!-- Nailong Full Body -->
+            <div class="nailong-fullbody" style="animation-delay: 0.3s;">
+                <div class="nailong-avatar" style="margin-bottom:0; z-index:4;">
+                    <div class="nailong-horn"></div>
+                    <div class="nailong-eyes left" style="height:8px; top:42px;"></div>
+                    <div class="nailong-eyes right" style="height:8px; top:42px;"></div>
+                    <div class="nailong-mouth" style="width:14px; left:38px;"></div>
+                </div>
+                <div class="nailong-body"><div class="nailong-belly"></div></div>
+                <div class="nailong-hand left"></div>
+                <div class="nailong-hand right"></div>
+                <div class="nailong-foot left"></div>
+                <div class="nailong-foot right"></div>
+                <div class="nailong-tail"></div>
+            </div>
+
+            <h1>Tempat <span>Teraman🫂</span></h1>
+            
+            <p>"Kata dia, ada banyak sekali bising di luar sana, tapi kehadiranmu adalah sunyi yang paling menenangkan. Menatap matamu selalu terasa seperti pulang ke rumah hangat setelah perjalanan panjang membelah badai."</p>
+            
+            <div class="nav-container">
+                <button class="btn btn-prev" onclick="changePage(-1)">❮ Kembali</button>
+                <button class="btn" onclick="changePage(1)">Lanjut ❯</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 3 -->
+        <div class="page" id="p3">
+            <!-- Dekor Pinggir Halaman 3 -->
+            <div class="deco-flower fl-top-left"><div class="flower-core"></div></div>
+            <div class="deco-flower fl-top-right"><div class="flower-core"></div></div>
+            <div class="deco-flower fl-bot-left"><div class="flower-core"></div></div>
+            <div class="deco-star st2">✨</div>
+            <div class="deco-star st3">✨</div>
+
+            <!-- Nailong Full Body -->
+            <div class="nailong-fullbody" style="animation-delay: 0.6s;">
+                <div class="nailong-avatar" style="margin-bottom:0; z-index:4;">
+                    <div class="nailong-horn"></div>
+                    <div class="nailong-eyes left"></div>
+                    <div class="nailong-eyes right"></div>
+                    <div class="nailong-mouth" style="height:14px; border-radius:50%;"></div>
+                </div>
+                <div class="nailong-body"><div class="nailong-belly"></div></div>
+                <div class="nailong-hand left"></div>
+                <div class="nailong-hand right"></div>
+                <div class="nailong-foot left"></div>
+                <div class="nailong-foot right"></div>
+                <div class="nailong-tail"></div>
+            </div>
+
+            <h1>Selamat <span>Ulang Tahun!</span></h1>
+            <p><b>Suji Pranandito🎂🤍</b></p>
+            <p>"Di hari lahirmu ini, dia tidak ingin meminta banyak pada semesta, selain meminta agar tawa tangguhmu itu tidak pernah pudar. Terima kasih ya sudah tumbuh menjadi jiwa yang sekuat dan seindah ini."</p>
+            
+            <div class="nav-container">
+                <button class="btn btn-prev" onclick="changePage(-1)">❮ Kembali</button>
+                <button class="btn" onclick="changePage(1)">Lanjut ❯</button>
+            </div>
+        </div>
+
+        <!-- HALAMAN 4 -->
+        <div class="page" id="p4">
+            <!-- Dekor Pinggir Halaman 4 -->
+            <div class="deco-flower fl-top-right"><div class="flower-core"></div></div>
+            <div class="deco-flower fl-mid-left"><div class="flower-core"></div></div>
+            <div class="deco-flower fl-bot-right"><div class="flower-core"></div></div>
+            <div class="deco-star st1">⭐</div>
+            <div class="deco-star st4">⭐</div>
+
+            <!-- Nailong Full Body -->
+            <div class="nailong-fullbody" style="animation-delay: 0.9s;">
+                <div class="nailong-avatar" style="margin-bottom:0; z-index:4;">
+                    <div class="nailong-horn"></div>
+                    <div class="nailong-eyes left" style="width:12px; height:4px; background:transparent; border-top:3px solid #333; border-radius:50%"></div>
+                    <div class="nailong-eyes right" style="width:12px; height:4px; background:transparent; border-top:3px solid #333; border-radius:50%"></div>
+                    <div class="nailong-mouth"></div>
+                </div>
+                <div class="nailong-body"><div class="nailong-belly"></div></div>
+                <div class="nailong-hand left"></div>
+                <div class="nailong-hand right"></div>
+                <div class="nailong-foot left"></div>
+                <div class="nailong-foot right"></div>
+                <div class="nailong-tail"></div>
+            </div>
+
+            <h1>Seterusnya, <span>Kita.</span></h1>
+            <div class="deco-dots">💗💗💗</div>
+            <p>"Dia merayakanmu—kemarin, hari ini, esok, dan di setiap lembar cerita kalian yang belum sempat ditulis oleh waktu. Semoga bahagia selalu bersamamu."</p>
+            <p style="color: #FF9130; font-weight: bold; font-size: 12px; margin-top: 5px;">— Dari Pacar Tersayangmu —</p>
+            
+            <div class="nav-container">
+                <button class="btn btn-prev" onclick="changePage(-1)">❮ Kembali</button>
+                <button class="btn" onclick="window.location.reload();">Ulangi ↺</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- TAMPILAN COPYRIGHT DI BAWAH LAYAR -->
+    <div class="copyright">
+        &copy; 2026 Made with 💛 by manda. All Rights Reserved.
+    </div>
+
+    <!-- JAVASCRIPT NAVIGASI MAJU MUNDUR -->
+    <script>
+        let currentStep = 1;
+        const totalSteps = 4;
+
+        function changePage(direction) {
+            const currentEl = document.getElementById('p' + currentStep);
+            currentEl.classList.remove('active');
+            
+            if (direction === 1) {
+                currentEl.classList.add('passed');
+            }
+
+            currentStep += direction;
+
+            if (currentStep < 1) currentStep = 1;
+            if (currentStep > totalSteps) currentStep = totalSteps;
+
+            const nextEl = document.getElementById('p' + currentStep);
+            nextEl.classList.remove('passed');
+            nextEl.classList.add('active');
+        }
+    </script>
+</body>
+</html>
